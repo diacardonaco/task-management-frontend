@@ -1,0 +1,25 @@
+<h2>Crear Nueva Tarea</h2>
+<form (ngSubmit)="onSubmit()" #taskForm="ngForm">
+  <div>
+    <label for="title">Título:</label>
+    <input type="text" id="title" name="title" [(ngModel)]="task.title" required />
+  </div>
+
+  <div>
+    <label for="description">Descripción:</label>
+    <textarea id="description" name="description" [(ngModel)]="task.description"></textarea>
+  </div>
+
+  <div>
+    <label for="status">Estado:</label>
+    <select id="status" name="status" [(ngModel)]="task.status" required (change)="onStatusChange($event)">
+        <option value="TODO">TODO</option>
+        <option value="IN_PROGRESS">IN PROGRESS</option>
+        <option value="COMPLETED">COMPLETED</option>
+    </select>
+      
+  </div>
+
+  <button type="submit">Agregar Tarea</button>
+</form>
+
