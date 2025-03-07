@@ -1,0 +1,53 @@
+# Node.js dependencies
+node_modules/
+package-lock.json
+npm-debug.log
+yarn.lock
+pnpm-lock.yaml
+
+# Angular build files
+dist/
+tmp/
+.out/
+.angular/
+
+# IDEs & Editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Logs & OS files
+logs/
+*.log
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.production
+
+# Spring Boot specific
+target/
+*.war
+*.jar
+
+# Maven & Gradle
+.mvn/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.next
+release.properties
+target/
+build/
+
+# Docker
+docker-compose.override.yml
