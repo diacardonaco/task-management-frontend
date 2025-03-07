@@ -30,15 +30,32 @@ export class TaskListComponent implements OnInit {
   }
 
   updateTaskStatus(task: Task) {
-    const updatedTask = { ...task, status: this.getNextStatus(task.status) };
-    // this.taskService.updateTask(task.id!, updatedTask).subscribe((newTask) => {
-    //   this.tasks = this.tasks.map((t) => (t.id === newTask.id ? newTask : t));
-    // });
+    if (!task?.id) return; // Evita errores si task es null o undefined
+  
+    const updatedTask: Task = { 
+      ...task, 
+      status: this.getNextStatus(task.status) // Ya no hace falta `as TaskStatus` si `getNextStatus()` está bien definida
+    };
+  
+    this.taskService.updateTask(task.id, updatedTask).subscribe({
+      next: (newTask) => {
+        this.tasks = this.tasks.map((t) => (t.id === newTask.id ? newTask : t));
+      },
+      error: (err) => {
+        console.error("Error al actualizar la tarea:", err);
+      }
+    });
   }
+  
 
-  getNextStatus(currentStatus: string): string {
-    const statusOrder = ['TODO', 'IN_PROGRESS', 'COMPLETED'];
-    const currentIndex = statusOrder.indexOf(currentStatus);
-    return statusOrder[(currentIndex + 1) % statusOrder.length];
+  getNextStatus(currentStatus: 'TODO' | 'IN_PROGRESS' | 'COMPLETED'): 'TODO' | 'IN_PROGRESS' | 'COMPLETED' {
+    const statusMap: Record<'TODO' | 'IN_PROGRESS' | 'COMPLETED', 'TODO' | 'IN_PROGRESS' | 'COMPLETED'> = {
+      TODO: 'IN_PROGRESS',
+      IN_PROGRESS: 'COMPLETED',
+      COMPLETED: 'TODO' // O cualquier otro flujo que necesites
+    };
+  
+    return statusMap[currentStatus]; // Esto asegurará que siempre devuelva un valor válido
   }
+  
 }
